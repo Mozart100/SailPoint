@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using SailPoint.Infrastracture;
+using System.Collections.Concurrent;
 
 namespace SailPoint.Services;
 
@@ -75,6 +76,26 @@ public class LexicalCityTree
             result.Add(currentPrefix);
         }
     }
+
+    public IEnumerable<string> DisplayCitiesLexicographically()
+    {
+        var cities = new List<string>();
+        DisplayCitiesLexicographically(root, "", cities);
+        return cities;
+    }
+
+    private void DisplayCitiesLexicographically(CityNode node, string currentPrefix, List<string> cities)
+    {
+        foreach (var child in node.Children.Values)
+        {
+            DisplayCitiesLexicographically(child, currentPrefix + child.Value, cities);
+        }
+
+        if (node.IsEndOfCity)
+        {
+            cities.Add(currentPrefix);
+        }
+    }
 }
 
 public class GraphCities
@@ -112,5 +133,23 @@ public class GraphCities
         }
 
         return result;
+    }
+
+    public async Task<IEnumerable<string>> GetAllCitiesAsync()
+    {
+        var list = new List<string>();
+        foreach (var keyValue in _graph.ToArray())
+        {
+            var ptr = keyValue.Value.DisplayCitiesLexicographically();
+            if (!ptr.IsNullOrEmpty())
+            {
+                foreach (var element in ptr)
+                {
+                    list.Add(element);
+                }
+            }
+        }
+
+        return list;
     }
 }

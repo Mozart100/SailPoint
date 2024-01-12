@@ -32,8 +32,16 @@ public class CityDetailController : ControllerBase
 
 
     [HttpGet]
+    [Route("cities/")]
+    public async Task<GetCitiesResponse> GetAllCitities()
+    {
+        var cities = await _cityLocaterService.GetAllCitiesAsync();
+        return new GetCitiesResponse { Cities = cities.ToArray() };
+    }
+
+    [HttpGet]
     [Route("cities/{prefix}")]
-    public async Task<GetCitiesResponse> GetAllCitities(string prefix)
+    public async Task<GetCitiesResponse> GetCitities(string prefix = null)
     {
         if (prefix.IsNullOrEmpty())
         {

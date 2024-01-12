@@ -2,6 +2,7 @@
 
 public interface ICityLocaterService
 {
+    Task<IEnumerable<string>> GetAllCitiesAsync();
     Task<IEnumerable<string>> SearchCitiesAsync(string prefix);
     Task StoreCityAsync(string city);
 }
@@ -23,6 +24,12 @@ public class CityLocaterService : ICityLocaterService
     public async Task<IEnumerable<string>> SearchCitiesAsync(string prefix)
     {
         var cities = _graphCity.SearchCities(prefix);
+        return cities;
+    }
+
+    public async Task<IEnumerable<string>> GetAllCitiesAsync()
+    {
+        var cities =await _graphCity.GetAllCitiesAsync();
         return cities;
     }
 }

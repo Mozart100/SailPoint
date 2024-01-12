@@ -1,6 +1,6 @@
-﻿//using NetBet.Converters;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 using System.Text.Json;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SailPoint.Automation.Scenario
 {
@@ -28,14 +28,14 @@ namespace SailPoint.Automation.Scenario
         public abstract string Description { get; }
 
 
-        protected virtual Task Setup()
+        protected  virtual async Task Setup()
         {
-            return Task.FromResult(true);
+            Console.WriteLine($"No {nameof(Setup)} operation was performed!!!");
         }
 
-        protected virtual Task PostRun()
+        protected virtual async Task PostRun()
         {
-            return Task.FromResult(true);
+            Console.WriteLine($"No {nameof(PostRun)} operation was performed!!!");
         }
 
 
@@ -67,7 +67,6 @@ namespace SailPoint.Automation.Scenario
             DisplayEmptyLines();
 
             Console.WriteLine($"This scenario main purpose: {Description}");
-
             DisplayEmptyLines();
 
 
@@ -81,6 +80,9 @@ namespace SailPoint.Automation.Scenario
             Console.WriteLine($"Valid scenarios: {ScenarioName} base url = {BaseUrl} started.");
             await RunScenario();
             Console.WriteLine($"Valid scenarios: {ScenarioName} finished successfully.");
+
+
+            DisplayEmptyLines();
 
 
             Console.WriteLine($"Post run of {ScenarioName} started.");
@@ -136,7 +138,6 @@ namespace SailPoint.Automation.Scenario
 
         protected async Task<TResponse> RunPutCommand<TRequest, TResponse>(string url, TRequest request) where TRequest : class
         {
-
             return await RunPutOrPostCommand<TRequest, TResponse>(url, request, false);
         }
 
@@ -177,43 +178,5 @@ namespace SailPoint.Automation.Scenario
                 throw new Exception($"Failed Populate in {url}");
             }
         }
-
-        //protected async Task<TResponse> RunPostCommand<TRequest, TResponse>(string url, TRequest request, bool isPostRequest = true) where TRequest : class
-        //{
-        //    using (HttpClient client = new HttpClient())
-        //    {
-        //        var sendOptions = new JsonSerializerOptions();
-        //        sendOptions.Converters.Add(_dateOnlyConverter);
-
-        //        var content = new StringContent(JsonSerializer.Serialize(request, sendOptions), System.Text.Encoding.UTF8, "application/json");
-
-        //        HttpResponseMessage response = null;
-
-        //        if (isPostRequest)
-        //        {
-        //            response = await client.PostAsync(url, content);
-        //        }
-        //        else
-        //        {
-        //            response = await client.PutAsync(url, content);
-        //        }
-
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            string responseContent = await response.Content.ReadAsStringAsync();
-        //            var recieveOptions = new JsonSerializerOptions
-        //            {
-        //                PropertyNameCaseInsensitive = true
-        //            };
-        //            recieveOptions.Converters.Add(_dateOnlyConverter);
-
-        //            var responseData = JsonSerializer.Deserialize<TResponse>(responseContent, recieveOptions);
-        //            return responseData;
-        //        }
-
-        //        throw new Exception($"Failed Populate in {url}");
-        //    }
-        //}
-
     }
 }
