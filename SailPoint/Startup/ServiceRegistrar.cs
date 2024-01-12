@@ -16,7 +16,11 @@ public static class ServiceRegistrar
         services.AddTransient<ICityValidationService, CityValidationService>();
         services.AddSingleton<ICityLocaterService, CityLocaterService>();
 
+<<<<<<< HEAD
         services.AddSingleton<ICityLocaterValidationService, CityLocaterValidationService>();
+=======
+        //services.AddSingleton<ICarRentalService, CarRentalService>();
+>>>>>>> 0b7b8d59cb5fdab65559c7a8522d0dcc8fc2566a
         //services.AddSingleton<ICarRentalValidationService, CarRentalValidationService>();
 
         //services.AddSingleton<IRentalDateSlotService, RentalDateSlotService>();
