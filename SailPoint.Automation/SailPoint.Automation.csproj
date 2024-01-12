@@ -15,7 +15,7 @@
   
   
   <ItemGroup>
-    <ProjectReference Include="..\SailPoint\SailPoint.csproj" />
+    <ProjectReference Include="..\SailPoint.Server\SailPoint.csproj" />
   </ItemGroup>
 
 </Project>
