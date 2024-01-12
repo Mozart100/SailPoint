@@ -1,10 +1,14 @@
 ﻿using SailPoint.Automation.Scenario;
 
-var baseUrl = "https://localhost:7138";
+var baseUrl = "https://localhost:7138/CityDetail";
 
 
 var staticDataScenario = new CitiesStaticDataScenario(baseUrl);
 await staticDataScenario.StartRunScenario();
+
+
+var cityLocatorScenario = new CityLocatorScenario(baseUrl);
+await cityLocatorScenario.StartRunScenario();
 
 Console.WriteLine();
 Console.WriteLine();

@@ -1,36 +1,47 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using SailPoint.Infrastracture;
 using SailPoint.Models.Dtos;
 using SailPoint.Services;
+using SailPoint.Services.Validations;
 
-namespace SailPoint.Controllers
+namespace SailPoint.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class CityDetailController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class CityDetailController : ControllerBase
+    private readonly ICityDetailService _cityDetailService;
+    private readonly ICityLocaterService _cityLocaterService;
+    private readonly IMapper _mapper;
+
+    public CityDetailController(ICityDetailService cityDetailService, ICityLocaterService cityLocaterService, IMapper mapper)
     {
-        private readonly ICityDetailService _cityDetailService;
-        private readonly IMapper _mapper;
+        this._cityDetailService = cityDetailService;
+        this._cityLocaterService = cityLocaterService;
+        this._mapper = mapper;
+    }
 
-        public CityDetailController(ICityDetailService cityDetailService, IMapper mapper)
+    [HttpPost]
+    public async Task<AddCityDetailResponse> AddCity(AddCityDetailRequest request)
+    {
+        var dbEntity = await _cityDetailService.StoreCityAsync(request);
+        var response = _mapper.Map<AddCityDetailResponse>(dbEntity);
+        return response;
+    }
+
+
+    [HttpGet]
+    [Route("cities/{prefix}")]
+    public async Task<GetCitiesResponse> GetAllCitities(string prefix)
+    {
+        if (prefix.IsNullOrEmpty())
         {
-            this._cityDetailService = cityDetailService;
-            this._mapper = mapper;
+            var error = new SailPointError("predix", "Shouldnt be empty");
+            throw new SailPointException(new[] { error });
         }
 
-        //[HttpGet]
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
-
-
-        [HttpPost]
-        public async Task<AddCityDetailResponse> AddCity(AddCityDetailRequest request)
-        {
-            var dbEntity = await _cityDetailService.StoreCity(request);
-            var response = _mapper.Map<AddCityDetailResponse>(dbEntity);
-            return response;
-        }
+        var cities = await _cityLocaterService.SearchCitiesAsync(prefix);
+        return new GetCitiesResponse { Cities = cities.ToArray() };
     }
 }
