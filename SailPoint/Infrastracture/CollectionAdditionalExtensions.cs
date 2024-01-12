@@ -1,6 +1,6 @@
 ﻿namespace SailPoint.Infrastracture;
 
-public static class SailPointCollectionExtensions
+public static class CollectionAdditionalExtensions
 {
     public static bool IsNullOrEmpty<T>(this IEnumerable<T> collection)
     {

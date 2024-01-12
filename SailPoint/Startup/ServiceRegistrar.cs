@@ -1,9 +1,9 @@
 ﻿
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using NetBet.Services.Validations;
 using SailPoint.DataAccess.Repository;
 using SailPoint.Errors;
 using SailPoint.Services;
+using SailPoint.Services.Validations;
 
 namespace SailPoint.Startup;
 
@@ -14,18 +14,13 @@ public static class ServiceRegistrar
         services.AddSingleton<ICityRepository, CityRepository>();
         services.AddTransient<ICityDetailService, CityDetailService>();
         services.AddTransient<ICityValidationService, CityValidationService>();
+        services.AddSingleton<ICityLocaterService, CityLocaterService>();
 
-
-        //services.AddSingleton<ICarRentalRepository, CarRentalRepository>();
         //services.AddSingleton<ICarRentalService, CarRentalService>();
         //services.AddSingleton<ICarRentalValidationService, CarRentalValidationService>();
 
         //services.AddSingleton<IRentalDateSlotService, RentalDateSlotService>();
         services.AddSingleton<ProblemDetailsFactory, BuberDinnerProblemDetailsFactory>();
-
-
-
-
 
         return services;
     }

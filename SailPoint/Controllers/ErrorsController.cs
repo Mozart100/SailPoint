@@ -10,7 +10,6 @@ namespace SailPoint.Controllers
         public IActionResult Index()
         {
             var exception = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
-            //return Problem(statusCode: 500, title: exception?.Message);
             return Problem(title: exception?.Message);
 
         }

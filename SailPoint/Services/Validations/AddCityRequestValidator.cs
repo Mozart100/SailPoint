@@ -10,3 +10,4 @@ public class AddCityRequestValidator : AbstractValidator<AddCityDetailRequest>
         RuleFor(req => req.City).NotNull().WithMessage("{PropertyName} shouldnt be empty.");
     }
 }
+
