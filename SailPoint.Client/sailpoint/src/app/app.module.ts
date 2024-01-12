@@ -4,13 +4,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
+import { AutoCompleteTextboxComponent } from './auto-complete-textbox/auto-complete-textbox.component';
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes : Routes =[{
+  path:'',component: AutoCompleteTextboxComponent
+}]
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AutoCompleteTextboxComponent
   ],
   imports: [
     BrowserModule,
+    RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     MaterialModule
   ],
