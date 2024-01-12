@@ -3,7 +3,7 @@
 public interface ICityLocaterService
 {
     Task<IEnumerable<string>> SearchCitiesAsync(string prefix);
-    Task<bool> StoreCityAsync(string city);
+    Task StoreCityAsync(string city);
 }
 
 public class CityLocaterService : ICityLocaterService
@@ -15,11 +15,9 @@ public class CityLocaterService : ICityLocaterService
         _graphCity = new GraphCities();
     }
 
-    public async Task<bool> StoreCityAsync(string city)
+    public async Task StoreCityAsync(string city)
     {
         _graphCity.InsertCity(city);
-
-        return true;
     }
 
     public async Task<IEnumerable<string>> SearchCitiesAsync(string prefix)
