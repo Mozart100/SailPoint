@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { AutoCompleteTextboxComponent } from './auto-complete-textbox/auto-complete-textbox.component';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes : Routes =[{
   path:'',component: AutoCompleteTextboxComponent
@@ -18,6 +19,7 @@ const appRoutes : Routes =[{
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     MaterialModule
