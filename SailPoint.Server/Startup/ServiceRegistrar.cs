@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using SailPoint.DataAccess.Repository;
 using SailPoint.Errors;
@@ -9,8 +10,17 @@ namespace SailPoint.Startup;
 
 public static class ServiceRegistrar
 {
+    public const string CorsPolicy = "CorsPolicy";
     public static IServiceCollection CustomServiceRegistration(this IServiceCollection services)
     {
+        services.AddCors(options =>
+        {
+            options.AddPolicy(CorsPolicy, builder => builder.WithOrigins("http://localhost:4200").
+                                                               AllowAnyMethod().
+                                                               AllowAnyHeader().
+                                                               AllowCredentials());
+        });
+
         services.AddSingleton<ICityRepository, CityRepository>();
         services.AddTransient<ICityDetailService, CityDetailService>();
         services.AddTransient<ICityValidationService, CityValidationService>();

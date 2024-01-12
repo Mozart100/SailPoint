@@ -19,7 +19,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors(ServiceRegistrar.CorsPolicy);
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

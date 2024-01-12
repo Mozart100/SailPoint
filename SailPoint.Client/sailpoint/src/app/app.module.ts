@@ -7,24 +7,33 @@ import { MaterialModule } from './material/material.module';
 import { AutoCompleteTextboxComponent } from './auto-complete-textbox/auto-complete-textbox.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { DisplayAllCitiesComponent } from './display-all-cities/display-all-cities.component';
 
-const appRoutes : Routes =[{
-  path:'',component: AutoCompleteTextboxComponent
-}]
+const appRoutes: Routes = [
+  {
+    path: '',
+    component: AutoCompleteTextboxComponent,
+  },
+  {
+    path: 'displayallcities',
+    component: DisplayAllCitiesComponent,
+  },
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    AutoCompleteTextboxComponent
+    AutoCompleteTextboxComponent,
+    DisplayAllCitiesComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
