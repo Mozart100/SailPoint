@@ -1,6 +1,6 @@
 ﻿namespace SailPoint.Infrastracture;
 
-public static class SailPointStringExtensionsClass
+public static class StringAdditionalExtensionsClass
 {
     public static bool IsEmpty(this string str)
     {
@@ -15,5 +15,13 @@ public static class SailPointStringExtensionsClass
     public static bool IsNotEmpty(this string str)
     {
         return !str.IsEmpty();
+    }
+
+    public static bool SafeEqual(this string source, string target)
+    {
+        var str1 = source ?? string.Empty;
+        var str2= target ?? string.Empty;
+        
+        return str1.Equals(str2,StringComparison.OrdinalIgnoreCase); 
     }
 }

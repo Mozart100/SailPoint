@@ -4,6 +4,10 @@ using System.Text.Json;
 
 namespace SailPoint.Automation.Scenario
 {
+    public class ScenarioConfig
+    {
+        public int NumberEmptyLines { get; set; } = 2;
+    }
     public abstract class ScenarioBase
     {
         //private readonly DateOnlyJsonConverter _dateOnlyConverter;
@@ -11,13 +15,14 @@ namespace SailPoint.Automation.Scenario
         public ScenarioBase(string baseUrl)
         {
             BaseUrl = baseUrl;
-
+            Config = new ScenarioConfig();
 
             //_dateOnlyConverter = new DateOnlyJsonConverter();
         }
 
         public string BaseUrl { get; }
 
+        protected ScenarioConfig Config { get; }
 
         public abstract string ScenarioName { get; }
         public abstract string Description { get; }
@@ -36,6 +41,15 @@ namespace SailPoint.Automation.Scenario
 
         protected abstract Task RunScenario();
 
+        protected void DisplayEmptyLines()
+        {
+            var loop = Config.NumberEmptyLines;
+            while(loop -- > 0)
+            {
+                Console.WriteLine();
+            }
+        }
+
 
         public async Task StartRunScenario()
         {
@@ -50,17 +64,18 @@ namespace SailPoint.Automation.Scenario
             Console.WriteLine($" ------------------------{ScenarioName}----------------------------");
             Console.WriteLine($" ------------------------{ScenarioName}----------------------------");
 
-            Console.WriteLine();
-            Console.WriteLine();
+            DisplayEmptyLines();
 
             Console.WriteLine($"This scenario main purpose: {Description}");
 
-            Console.WriteLine();
-            Console.WriteLine();
+            DisplayEmptyLines();
+
 
             Console.WriteLine($"Setup of {ScenarioName} started.");
             await Setup();
             Console.WriteLine($"Setup of {ScenarioName} ended succeffully.");
+
+            DisplayEmptyLines();
 
 
             Console.WriteLine($"Valid scenarios: {ScenarioName} base url = {BaseUrl} started.");

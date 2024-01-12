@@ -1,26 +1,25 @@
-﻿namespace NetBet.Services.Validations
+﻿namespace SailPoint.Services.Validations;
+
+public class SailPointError
 {
-    public class SailPointError
+    public SailPointError(string errorMessage, string propertyName)
     {
-        public SailPointError(string errorMessage, string propertyName)
-        {
-            PropertyName = propertyName;
-            ErrorMessage = errorMessage;
-        }
-
-        public string ErrorMessage { get; }
-        public string PropertyName { get; }
-
+        PropertyName = propertyName;
+        ErrorMessage = errorMessage;
     }
 
+    public string ErrorMessage { get; }
+    public string PropertyName { get; }
 
-    public class SailPointException : Exception
+}
+
+
+public class SailPointException : Exception
+{
+    public SailPointException(params SailPointError[] sailPointErrors)
     {
-        public SailPointException(params SailPointError[] sailPointErrors)
-        {
-            SailPointErrors = sailPointErrors;
-        }
-
-        public SailPointError[] SailPointErrors { get; }
+        SailPointErrors = sailPointErrors;
     }
+
+    public SailPointError[] SailPointErrors { get; }
 }

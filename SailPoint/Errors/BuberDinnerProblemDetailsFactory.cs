@@ -4,19 +4,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Diagnostics;
+using SailPoint.Infrastracture;
+using SailPoint.Services.Validations;
 
 namespace SailPoint.Errors;
 
 public class BuberDinnerProblemDetailsFactory : ProblemDetailsFactory
 {
     private readonly ApiBehaviorOptions _options;
-    //private readonly Action<ProblemDetailsContext>? _configure;
 
     public BuberDinnerProblemDetailsFactory(
         IOptions<ApiBehaviorOptions> options)
     {
         _options = options?.Value ?? throw new ArgumentNullException(nameof(options));
-        //_configure = problemDetailsOptions?.Value?.CustomizeProblemDetails;
     }
 
     public override ProblemDetails CreateProblemDetails(
@@ -92,8 +92,12 @@ public class BuberDinnerProblemDetailsFactory : ProblemDetailsFactory
         }
 
         var exception = httpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
-        problemDetails.Extensions.Add("toliProp", "toliValue");
-
-        //_configure?.Invoke(new() { HttpContext = httpContext!, ProblemDetails = problemDetails });
+        if (exception != null && exception is SailPointException sailPointException && !sailPointException.SailPointErrors.IsNullOrEmpty())
+        {
+            foreach (var item in sailPointException.SailPointErrors)
+            {
+                problemDetails.Extensions.Add(item.PropertyName, item.ErrorMessage);
+            }
+        }
     }
 }
