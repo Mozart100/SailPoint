@@ -1,8 +1,10 @@
-﻿var baseUrl = "https://localhost:7138/api";
+﻿using SailPoint.Automation.Scenario;
+
+var baseUrl = "https://localhost:7138";
 
 
-//var staticDataScenario = new CarsStaticDataScenario(baseUrl);
-//await staticDataScenario.StartRunScenario();
+var staticDataScenario = new CitiesStaticDataScenario(baseUrl);
+await staticDataScenario.StartRunScenario();
 
 Console.WriteLine();
 Console.WriteLine();

@@ -1,6 +1,9 @@
 ﻿
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using NetBet.Services.Validations;
+using SailPoint.DataAccess.Repository;
 using SailPoint.Errors;
+using SailPoint.Services;
 
 namespace SailPoint.Startup;
 
@@ -8,9 +11,9 @@ public static class ServiceRegistrar
 {
     public static IServiceCollection CustomServiceRegistration(this IServiceCollection services)
     {
-        //services.AddSingleton<ICarRepository, CarRepository>();
-        //services.AddSingleton<ICarService, CarService>();
-        //services.AddSingleton<ICarValidationService, CarValidationService>();
+        services.AddSingleton<ICityRepository, CityRepository>();
+        services.AddTransient<ICityDetailService, CityDetailService>();
+        services.AddTransient<ICityValidationService, CityValidationService>();
 
 
         //services.AddSingleton<ICarRentalRepository, CarRentalRepository>();

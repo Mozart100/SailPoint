@@ -7,6 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\Validations\**" />
+    <Content Remove="Services\Validations\**" />
+    <EmbeddedResource Remove="Services\Validations\**" />
+    <None Remove="Services\Validations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Services\Validations\AddCityRequestValidator.cs" />
+    <Compile Include="Services\Validations\CarValidationService.cs" />
+    <Compile Include="Services\Validations\SailPointError.cs" />
+    <Compile Include="Services\Validations\ServiceValidatorBase.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
