@@ -1,0 +1,5 @@
+﻿@rootUrl=https://localhost:7138
+
+GET {{rootUrl}}/api/rent/exception
+
+
