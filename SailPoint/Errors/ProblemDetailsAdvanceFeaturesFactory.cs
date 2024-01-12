@@ -9,11 +9,11 @@ using SailPoint.Services.Validations;
 
 namespace SailPoint.Errors;
 
-public class BuberDinnerProblemDetailsFactory : ProblemDetailsFactory
+public class ProblemDetailsAdvanceFeaturesFactory : ProblemDetailsFactory
 {
     private readonly ApiBehaviorOptions _options;
 
-    public BuberDinnerProblemDetailsFactory(
+    public ProblemDetailsAdvanceFeaturesFactory(
         IOptions<ApiBehaviorOptions> options)
     {
         _options = options?.Value ?? throw new ArgumentNullException(nameof(options));

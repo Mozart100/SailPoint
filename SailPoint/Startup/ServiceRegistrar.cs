@@ -20,7 +20,7 @@ public static class ServiceRegistrar
         //services.AddSingleton<ICarRentalValidationService, CarRentalValidationService>();
 
         //services.AddSingleton<IRentalDateSlotService, RentalDateSlotService>();
-        services.AddSingleton<ProblemDetailsFactory, BuberDinnerProblemDetailsFactory>();
+        services.AddSingleton<ProblemDetailsFactory, ProblemDetailsAdvanceFeaturesFactory>();
 
         return services;
     }
