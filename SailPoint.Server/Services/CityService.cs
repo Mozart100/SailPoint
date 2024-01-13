@@ -7,19 +7,19 @@ using SailPoint.Services.Validations;
 namespace SailPoint.Services;
 
 
-public interface ICityDetailService
+public interface ICityService
 {
-    Task<CityDetailDb> StoreCityAsync(AddCityDetailRequest request);
+    Task<CityDb> StoreCityAsync(AddCityDetailRequest request);
 }
 
-public class CityDetailService : ICityDetailService
+public class CityService : ICityService
 {
     private readonly ICityRepository _cityRepository;
     private readonly IMapper _mapper;
     private readonly ICityValidationService _cityValidationService;
     private readonly ICityLocaterService _cityLocaterService;
 
-    public CityDetailService(ICityRepository cityRepository, IMapper mapper,
+    public CityService(ICityRepository cityRepository, IMapper mapper,
         ICityValidationService cityValidationService,
         ICityLocaterService cityLocaterService
         )
@@ -30,11 +30,11 @@ public class CityDetailService : ICityDetailService
         this._cityLocaterService = cityLocaterService;
     }
 
-    public async Task<CityDetailDb> StoreCityAsync(AddCityDetailRequest request)
+    public async Task<CityDb> StoreCityAsync(AddCityDetailRequest request)
     {
         await _cityValidationService.AddCarRequestValidateAsync(request);
 
-        var city = _mapper.Map<CityDetailDb>(request);
+        var city = _mapper.Map<CityDb>(request);
         var cityDetailDb = await _cityRepository.InsertAsync(city);
         await _cityLocaterService.StoreCityAsync(cityDetailDb.City);
 

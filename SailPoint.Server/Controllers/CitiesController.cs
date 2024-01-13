@@ -10,11 +10,11 @@ namespace SailPoint.Controllers;
 [Route("[controller]")]
 public class CitiesController : ControllerBase
 {
-    private readonly ICityDetailService _cityDetailService;
+    private readonly ICityService _cityDetailService;
     private readonly ICityLocaterService _cityLocaterService;
     private readonly IMapper _mapper;
 
-    public CitiesController(ICityDetailService cityDetailService, ICityLocaterService cityLocaterService, IMapper mapper)
+    public CitiesController(ICityService cityDetailService, ICityLocaterService cityLocaterService, IMapper mapper)
     {
         this._cityDetailService = cityDetailService;
         this._cityLocaterService = cityLocaterService;

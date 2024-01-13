@@ -2,12 +2,12 @@
 
 namespace SailPoint.DataAccess.Repository;
 
-public interface ICityRepository : IRepositoryBase<CityDetailDb>
+public interface ICityRepository : IRepositoryBase<CityDb>
 {
 
 }
 
-public class CityRepository : RepositoryBase<CityDetailDb>, ICityRepository
+public class CityRepository : RepositoryBase<CityDb>, ICityRepository
 {
     private readonly ILogger<CityRepository> _logger;
 
@@ -16,7 +16,7 @@ public class CityRepository : RepositoryBase<CityDetailDb>, ICityRepository
         _logger = logger;
     }
 
-    public override CityDetailDb Get(Predicate<CityDetailDb> selector)
+    public override CityDb Get(Predicate<CityDb> selector)
     {
         return base.Get(selector);
     }

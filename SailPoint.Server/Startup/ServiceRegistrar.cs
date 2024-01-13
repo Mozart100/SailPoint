@@ -20,7 +20,7 @@ public static class ServiceRegistrar
         });
 
         services.AddSingleton<ICityRepository, CityRepository>();
-        services.AddTransient<ICityDetailService, CityDetailService>();
+        services.AddTransient<ICityService, CityService>();
         services.AddTransient<ICityValidationService, CityValidationService>();
         services.AddSingleton<ICityLocaterService, CityLocaterService>();
 
