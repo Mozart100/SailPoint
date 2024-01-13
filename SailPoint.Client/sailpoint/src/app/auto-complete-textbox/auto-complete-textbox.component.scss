@@ -24,6 +24,13 @@
     }
 }
 
+/* Add this style to your component's CSS or your global styles */
+.mat-form-field-label {
+  font-size: 1.2rem; 
+//   line-height: 30px; /* Adjust the line height as needed */
+}
+
+
 .example-form {
 
     width: 100%;

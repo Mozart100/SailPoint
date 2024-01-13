@@ -1,5 +1,5 @@
-﻿@rootUrl=https://localhost:7138
+﻿@rootUrl=https://localhost:7138/CityDetail
 
-GET {{rootUrl}}/api/rent/exception
+GET {{rootUrl}}/cities
 
 
