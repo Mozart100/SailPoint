@@ -1,0 +1,14 @@
+.container {
+    margin:2rem;
+    text-align: center;
+}
+
+.all-cities{
+    display: flex;
+    flex-wrap: wrap;
+    & > *{
+        flex-basis:10rem;
+        border-right:2px solid darkgray;
+    }
+}
+

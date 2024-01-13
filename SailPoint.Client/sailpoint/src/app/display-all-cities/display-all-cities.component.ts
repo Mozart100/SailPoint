@@ -7,12 +7,15 @@ import { CityLocatorService } from '../services/city.locator.service';
   styleUrls: ['./display-all-cities.component.scss'],
 })
 export class DisplayAllCitiesComponent implements OnInit {
+  
+  cities: string [] = [];
+
   constructor(private cityLocatorService: CityLocatorService) {}
  
   ngOnInit(): void {
 
     this.cityLocatorService.getAllCities().subscribe(response=>{
-      console.log(response.cities);
+      this.cities = response.cities;
     })
   }
 

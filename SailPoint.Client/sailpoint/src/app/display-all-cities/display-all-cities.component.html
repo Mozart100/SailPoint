@@ -1,6 +1,8 @@
-<h1>All Cities</h1>
-
-<div class="container">
-        
-    
+<div class="container" color="accent">
+  <h1>All Cities</h1>
+  <mat-list role="list" class="all-cities">
+    <mat-list-item color="primary" role="listitem" *ngFor="let item of cities">{{
+      item
+    }}</mat-list-item>
+  </mat-list>
 </div>
