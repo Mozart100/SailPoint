@@ -3,7 +3,7 @@ using SailPoint.Models.Dtos;
 
 namespace SailPoint.Services.Validations;
 
-public class AddCityRequestValidator : AbstractValidator<AddCityDetailRequest>
+public class AddCityRequestValidator : AbstractValidator<AddCityRequest>
 {
     public AddCityRequestValidator()
     {

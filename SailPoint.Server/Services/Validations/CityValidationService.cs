@@ -4,7 +4,7 @@ namespace SailPoint.Services.Validations;
 
 public interface ICityValidationService
 {
-    Task AddCarRequestValidateAsync(AddCityDetailRequest request);
+    Task AddCarRequestValidateAsync(AddCityRequest request);
 }
 public class CityValidationService : ServiceValidatorBase, ICityValidationService
 {
@@ -15,7 +15,7 @@ public class CityValidationService : ServiceValidatorBase, ICityValidationServic
         _logger = logger;
     }
 
-    public async Task AddCarRequestValidateAsync(AddCityDetailRequest request)
+    public async Task AddCarRequestValidateAsync(AddCityRequest request)
     {
         var validator = new AddCityRequestValidator();
         var validationResult = validator.Validate(request);

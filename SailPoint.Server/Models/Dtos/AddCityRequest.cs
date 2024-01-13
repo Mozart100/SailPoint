@@ -1,12 +1,12 @@
 ﻿namespace SailPoint.Models.Dtos;
 
-public class AddCityDetailRequest
+public class AddCityRequest
 {
     public string City { get; set; }
 }
 
 
-public class AddCityDetailResponse
+public class AddCityResponse
 {
     public int Id { get; set; }
     public string City { get; set; }

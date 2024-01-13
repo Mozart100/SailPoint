@@ -9,7 +9,7 @@ namespace SailPoint.Services;
 
 public interface ICityService
 {
-    Task<CityDb> StoreCityAsync(AddCityDetailRequest request);
+    Task<CityDb> StoreCityAsync(AddCityRequest request);
 }
 
 public class CityService : ICityService
@@ -30,7 +30,7 @@ public class CityService : ICityService
         this._cityLocaterService = cityLocaterService;
     }
 
-    public async Task<CityDb> StoreCityAsync(AddCityDetailRequest request)
+    public async Task<CityDb> StoreCityAsync(AddCityRequest request)
     {
         await _cityValidationService.AddCarRequestValidateAsync(request);
 

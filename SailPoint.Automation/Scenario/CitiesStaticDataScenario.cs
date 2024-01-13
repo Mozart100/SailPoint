@@ -11,12 +11,12 @@ public class CitiesStaticDataScenario : ScenarioBase
 
     public CitiesStaticDataScenario(string baseUrl) : base(baseUrl)
     {
-        CitiesRequests = new List<AddCityDetailRequest>();
+        CitiesRequests = new List<AddCityRequest>();
 
         Initialize_CityRequest();
     }
 
-    public List<AddCityDetailRequest> CitiesRequests { get; }
+    public List<AddCityRequest> CitiesRequests { get; }
 
     public override string ScenarioName => "Populating static data.";
 
@@ -33,7 +33,7 @@ public class CitiesStaticDataScenario : ScenarioBase
 
         foreach (var request in CitiesRequests)
         {
-            var response = await RunPostCommand<AddCityDetailRequest, AddCityDetailResponse>(BaseUrl, request);
+            var response = await RunPostCommand<AddCityRequest, AddCityResponse>(BaseUrl, request);
 
             response.Id.Should().BeGreaterThan(0);
             response.City.Should().Be(request.City);
@@ -59,7 +59,7 @@ public class CitiesStaticDataScenario : ScenarioBase
 
         foreach(var city in cities)
         {
-            var cityDetail = new AddCityDetailRequest
+            var cityDetail = new AddCityRequest
             {
                 City = city
             };

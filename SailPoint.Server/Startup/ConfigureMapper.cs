@@ -8,7 +8,7 @@ public class ConfigureMapper : Profile
 {
     public ConfigureMapper()
     {
-        CreateMap<AddCityDetailRequest, CityDb>();
-        CreateMap<CityDb, AddCityDetailResponse>();
+        CreateMap<AddCityRequest, CityDb>();
+        CreateMap<CityDb, AddCityResponse>();
     }
 }

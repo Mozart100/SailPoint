@@ -22,10 +22,10 @@ public class CitiesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<AddCityDetailResponse> AddCity(AddCityDetailRequest request)
+    public async Task<AddCityResponse> AddCity(AddCityRequest request)
     {
         var dbEntity = await _cityDetailService.StoreCityAsync(request);
-        var response = _mapper.Map<AddCityDetailResponse>(dbEntity);
+        var response = _mapper.Map<AddCityResponse>(dbEntity);
         return response;
     }
 
