@@ -10,13 +10,12 @@ import { CityLocatorService } from '../services/city.locator.service';
 })
 export class AutoCompleteTextboxComponent implements OnInit {
   cities$!:Observable<string[]>;
-  filterOptions!: Observable<string[]>;
   formControl: FormControl = new FormControl('');
 
-  constructor(private githubService: CityLocatorService) {}
+  constructor(private cityservice: CityLocatorService) {}
 
   lookup(value: string): Observable<string[]> {
-    return this.githubService.search(value.toLowerCase(),2).pipe(
+    return this.cityservice.search(value.toLowerCase(),2).pipe(
       map(results => results.cities),
       catchError(_ => {
         return of([]);
@@ -32,7 +31,6 @@ export class AutoCompleteTextboxComponent implements OnInit {
         if (value !== '') {
           return this.lookup(value);
         } else {
-          // if no value is pressent, return null
           return of([]);
         }
       })

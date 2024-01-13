@@ -28,25 +28,9 @@ public class CitiesStaticDataScenario : ScenarioBase
 
     protected override async Task RunScenario()
     {
-        //await CallbackWrapper(async () =>);
-
         await PopulateData();
-
     }
 
-    //public async Task CallbackWrapper(Func<Task> callback)
-    //{
-    //    var methodName = GetMethodName(callback);
-    //    await callback();
-    //}
-    //private string GetMethodName(Delegate callback)
-    //{
-    //    if (callback == null)
-    //        throw new ArgumentNullException(nameof(callback));
-
-    //    MethodInfo methodInfo = callback.Method;
-    //    return methodInfo.Name;
-    //}
     private async Task PopulateData()
     {
         Console.WriteLine($"{nameof(PopulateData)} Started.");
