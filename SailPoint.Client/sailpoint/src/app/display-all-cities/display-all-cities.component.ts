@@ -7,18 +7,21 @@ import { CityLocatorService } from '../services/city.locator.service';
   styleUrls: ['./display-all-cities.component.scss'],
 })
 export class DisplayAllCitiesComponent implements OnInit {
-  
-  cities: string [] = [];
+  cities: string[] = [];
 
   constructor(private cityLocatorService: CityLocatorService) {}
- 
-  ngOnInit(): void {
 
-    this.cityLocatorService.getAllCities().subscribe(response=>{
+  ngOnInit(): void {
+    this.cityLocatorService.getAllCities().subscribe((response) => {
       this.cities = response.cities;
-    })
+    });
   }
 
-
-  
+  getColor(city: string): string {
+    // debugger;
+    if (city.indexOf('test') === 0) {
+      return 'red';
+    }
+    return 'black';
+  }
 }
