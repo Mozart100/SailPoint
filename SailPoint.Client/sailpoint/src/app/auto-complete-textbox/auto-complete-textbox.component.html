@@ -1,5 +1,19 @@
 <div class="container">
   <!-- <button mat-raised-button color="primary">xxxxxx</button>
   <button mat-raised-button color="accent">xxxxxx</button> -->
-  <h1>Please start typing</h1>
+  <h1>Auto Complete TextBox</h1>
+  
+  <div class="stack">
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Please start typing</mat-label>
+        <input matInput [matAutocomplete]="auto" placeholder="..." />
+        <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
+          <mat-option>Red</mat-option>
+          <mat-option>Blue</mat-option>
+          <mat-option>Green</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </div>
 </div>

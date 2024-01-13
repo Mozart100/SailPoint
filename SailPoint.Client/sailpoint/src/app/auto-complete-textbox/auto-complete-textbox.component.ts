@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./auto-complete-textbox.component.scss']
 })
 export class AutoCompleteTextboxComponent {
-
+  colorArray = ['red','blue','green'];
 }

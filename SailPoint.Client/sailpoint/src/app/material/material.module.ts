@@ -10,10 +10,11 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 
-const modules = [MatIconModule,MatListModule,MatCardModule, MatTabsModule ,MatInputModule,MatFormFieldModule,MatSidenavModule,MatButtonModule, BrowserAnimationsModule, MatToolbarModule,  MatTableModule];
+const modules = [MatIconModule,MatListModule,MatCardModule,MatAutocompleteModule, MatTabsModule ,MatInputModule,MatFormFieldModule,MatSidenavModule,MatButtonModule, BrowserAnimationsModule, MatToolbarModule,  MatTableModule];
 
 @NgModule({
   imports: [modules],
