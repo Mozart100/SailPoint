@@ -20,6 +20,7 @@ public class CityLocatorScenario : ScenarioBase
 
     protected override async Task RunScenario()
     {
+        await SanityTest_Expect_4_Records();
         await SanityTest_Expect_2_Records();
     }
 

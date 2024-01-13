@@ -48,7 +48,7 @@ public class CityDetailController : ControllerBase
             throw new SailPointException(new[] { error });
         }
 
-        var cities = await _cityLocaterService.SearchCitiesAsync(prefix);
+        var cities = await _cityLocaterService.SearchCitiesAsync(prefix, level);
         return new GetCitiesResponse { Cities = cities.ToArray() };
     }
 }
