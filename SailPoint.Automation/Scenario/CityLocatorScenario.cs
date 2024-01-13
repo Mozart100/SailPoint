@@ -9,7 +9,7 @@ public class CityLocatorScenario : ScenarioBase
 
     public CityLocatorScenario(string baseUrl) : base(baseUrl)
     {
-        GetCitiesUrl = $"{BaseUrl}/cities";
+        GetCitiesUrl = $"{BaseUrl}";
     }
 
     public string GetCitiesUrl { get; }
@@ -20,14 +20,14 @@ public class CityLocatorScenario : ScenarioBase
 
     protected override async Task RunScenario()
     {
-        await SanityTest_Expect_4_Records();
+        await SanityTest_Expect_5_Records();
         await SanityTest_Expect_2_Records();
     }
 
-    private async Task SanityTest_Expect_4_Records()
+    private async Task SanityTest_Expect_5_Records()
     {
         var response = await Get<GetCitiesResponse>($"{GetCitiesUrl}/tes/level/10");
-        response.Cities.SafeCount().Should().Be(4);
+        response.Cities.SafeCount().Should().Be(5);
     }
 
     private async Task SanityTest_Expect_2_Records()

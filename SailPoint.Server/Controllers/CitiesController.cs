@@ -8,13 +8,13 @@ namespace SailPoint.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class CityDetailController : ControllerBase
+public class CitiesController : ControllerBase
 {
     private readonly ICityDetailService _cityDetailService;
     private readonly ICityLocaterService _cityLocaterService;
     private readonly IMapper _mapper;
 
-    public CityDetailController(ICityDetailService cityDetailService, ICityLocaterService cityLocaterService, IMapper mapper)
+    public CitiesController(ICityDetailService cityDetailService, ICityLocaterService cityLocaterService, IMapper mapper)
     {
         this._cityDetailService = cityDetailService;
         this._cityLocaterService = cityLocaterService;
@@ -31,7 +31,6 @@ public class CityDetailController : ControllerBase
 
 
     [HttpGet]
-    [Route("cities/")]
     public async Task<GetCitiesResponse> GetAllCitities()
     {
         var cities = await _cityLocaterService.GetAllCitiesAsync();
@@ -39,7 +38,7 @@ public class CityDetailController : ControllerBase
     }
 
     [HttpGet]
-    [Route("cities/{prefix}/level/{level}")]
+    [Route("{prefix}/level/{level}")]
     public async Task<GetCitiesResponse> GetCitities(string prefix, int level)
     {
         if (level <= 0)

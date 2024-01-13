@@ -10,16 +10,15 @@ export class CityLocatorService {
   private baseUrl: string;
 
   constructor(private http: HttpClient) {
-    this.baseUrl = "https://localhost:7138/CityDetail";
+    this.baseUrl = "https://localhost:7138/cities";
   }
 
   getAllCities(): Observable<CitiesDto> {
-    const url = this.baseUrl + "/cities";
-    return this.http.get<CitiesDto>(url);
+    return this.http.get<CitiesDto>(this.baseUrl);
   }
 
   search(prefix:string , level: number): Observable<CitiesDto> {
-    const url = `${this.baseUrl}/cities/${prefix}/level/${level}`;
+    const url = `${this.baseUrl}/${prefix}/level/${level}`;
     return this.http.get<CitiesDto>(url);
   }
 

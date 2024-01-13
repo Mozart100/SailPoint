@@ -1,6 +1,6 @@
 ﻿using SailPoint.Automation.Scenario;
 
-var baseUrl = "https://localhost:7138/CityDetail";
+var baseUrl = "https://localhost:7138/cities";
 
 
 var staticDataScenario = new CitiesStaticDataScenario(baseUrl);

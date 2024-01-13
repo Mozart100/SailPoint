@@ -11,16 +11,12 @@ public class CitiesStaticDataScenario : ScenarioBase
 
     public CitiesStaticDataScenario(string baseUrl) : base(baseUrl)
     {
-        //AddCityUrl = $"{BaseUrl}/CityDetail";
-
         CitiesRequests = new List<AddCityDetailRequest>();
 
         Initialize_CityRequest();
     }
 
     public List<AddCityDetailRequest> CitiesRequests { get; }
-
-    //public string AddCityUrl { get; }
 
     public override string ScenarioName => "Populating static data.";
 
@@ -54,18 +50,18 @@ public class CitiesStaticDataScenario : ScenarioBase
     {
         //string[] cities = { "New York", "Toronto", "London", "Berlin", "Paris", "Tokyo", "Sydney", "Rio de Janeiro", "Mumbai", "Beijing" };
         string[] cities = {
-            "test","testt","testtt","testttt",
+            "test","testt","testtt","testttt","testtttt",
              "New York", "Berlin", "Beijing", "Bangkok", "New Orlians", "Barcelona", "Brisbane", "Bucharest", "Budapest", "Baltimore", "Buenos Aires", "Busan",
             "Cairo", "Cape Town", "Caracas", "Casablanca", "Chennai", "Chicago", "Chittagong", "Cologne", "Copenhagen", "Cordoba",
             "Curitiba", "Cusco", "Cyberjaya", "Changchun", "Chengdu", "Chiba", "Chittorgarh", "Coimbatore", "Cali", "Canberra",
             "Copenhagen", "Cordoba", "Curitiba", "Cusco", "Cyberjaya", "Changchun", "Chengdu", "Chiba", "Chittorgarh", "Coimbatore", "Cali", "Canberra"
         };
 
-        for (int i = 0; i < cities.Length; i++)
+        foreach(var city in cities)
         {
             var cityDetail = new AddCityDetailRequest
             {
-                City = cities[i]
+                City = city
             };
 
             CitiesRequests.Add(cityDetail);

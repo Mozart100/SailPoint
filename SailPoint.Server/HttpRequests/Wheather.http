@@ -1,5 +1,5 @@
-﻿@rootUrl=https://localhost:7138/CityDetail
+﻿@rootUrl=https://localhost:7138/cities
 
-GET {{rootUrl}}/cities
+GET {{rootUrl}}
 
 
