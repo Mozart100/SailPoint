@@ -40,12 +40,12 @@ public class CityDetailController : ControllerBase
     }
 
     [HttpGet]
-    [Route("cities/{prefix}")]
-    public async Task<GetCitiesResponse> GetCitities(string prefix = null)
+    [Route("cities/{prefix}/level/{level}")]
+    public async Task<GetCitiesResponse> GetCitities(string prefix, int level)
     {
-        if (prefix.IsNullOrEmpty())
+        if (level <= 0)
         {
-            var error = new SailPointError("predix", "Shouldnt be empty");
+            var error = new SailPointError("level", "Should be above zero.");
             throw new SailPointException(new[] { error });
         }
 

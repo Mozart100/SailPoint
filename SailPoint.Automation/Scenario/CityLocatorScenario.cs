@@ -23,10 +23,15 @@ public class CityLocatorScenario : ScenarioBase
         await SanityTest_Expect_2_Records();
     }
 
+    private async Task SanityTest_Expect_4_Records()
+    {
+        var response = await Get<GetCitiesResponse>($"{GetCitiesUrl}/tes/level/10");
+        response.Cities.SafeCount().Should().Be(4);
+    }
+
     private async Task SanityTest_Expect_2_Records()
     {
-        var response = await Get<GetCitiesResponse>($"{GetCitiesUrl}/new");
+        var response = await Get<GetCitiesResponse>($"{GetCitiesUrl}/tes/level/2");
         response.Cities.SafeCount().Should().Be(2);
-
     }
 }

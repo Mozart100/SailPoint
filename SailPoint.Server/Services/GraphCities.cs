@@ -43,7 +43,7 @@ public class LexicalCityTree
         currentNode.IsEndOfCity = true;
     }
 
-    public List<string> SearchCities(string prefix)
+    public List<string> SearchCities(string prefix, int level)
     {
         var result = new List<string>();
         CityNode currentNode = root;
@@ -60,21 +60,26 @@ public class LexicalCityTree
             }
         }
 
-        CollectCities(currentNode, prefix, result);
+        CollectCities(currentNode, prefix, level, result);
         return result;
     }
 
-    private void CollectCities(CityNode node, string currentPrefix, List<string> result)
+    private void CollectCities(CityNode node, string currentPrefix, int level, List<string> result)
     {
-        foreach (var child in node.Children.Values)
-        {
-            CollectCities(child, currentPrefix + child.Value, result);
-        }
-
         if (node.IsEndOfCity)
         {
             result.Add(currentPrefix);
+            if (--level <= 0)
+            {
+                return;
+            }
         }
+
+        foreach (var child in node.Children.Values)
+        {
+            CollectCities(child, currentPrefix + child.Value, level, result);
+        }
+
     }
 
     public IEnumerable<string> DisplayCitiesLexicographically()
@@ -121,7 +126,7 @@ public class GraphCities
         cityTree.InsertCity(city);
     }
 
-    public IEnumerable<string> SearchCities(string prefix)
+    public IEnumerable<string> SearchCities(string prefix, int level = 2)
     {
         List<string> result = null;
         prefix = prefix.ToLower();
@@ -129,7 +134,7 @@ public class GraphCities
 
         if (_graph.TryGetValue(firstLetter, out var cityTree))
         {
-            result = cityTree.SearchCities(prefix);
+            result = cityTree.SearchCities(prefix, level);
         }
 
         return result;
