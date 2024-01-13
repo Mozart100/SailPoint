@@ -17,4 +17,11 @@ export class CityLocatorService {
     const url = this.baseUrl + "/cities";
     return this.http.get<CitiesDto>(url);
   }
+
+  getCitiesByPrefix(prefix:string , level: number): Observable<CitiesDto> {
+    const url = `${this.baseUrl}/cities/${prefix}/level/${level}`;
+    return this.http.get<CitiesDto>(url);
+  }
+
+
 }
