@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, catchError, debounceTime, map, of, startWith, switchMap } from 'rxjs';
+import { CityLocatorService } from '../services/city.locator.service';
 
 @Component({
   selector: 'app-auto-complete-textbox',
@@ -8,21 +9,33 @@ import { Observable, map, startWith } from 'rxjs';
   styleUrls: ['./auto-complete-textbox.component.scss'],
 })
 export class AutoCompleteTextboxComponent implements OnInit {
-  colorArray = ['red', 'blue', 'green'];
+  cities$!:Observable<string[]>;
   filterOptions!: Observable<string[]>;
   formControl: FormControl = new FormControl('');
 
-  ngOnInit(): void {
-    this.filterOptions = this.formControl.valueChanges.pipe(
-      startWith(''),
-      map((value) => this._FILTER(value || ''))
+  constructor(private githubService: CityLocatorService) {}
+
+  lookup(value: string): Observable<string[]> {
+    return this.githubService.search(value.toLowerCase(),2).pipe(
+      map(results => results.cities),
+      catchError(_ => {
+        return of([]);
+      })
     );
   }
 
-  private _FILTER(target: string): string[] {
-    const searchValue = target.toLocaleLowerCase();
-    return this.colorArray.filter((x) =>
-      x.toLocaleLowerCase().includes(searchValue)
+  ngOnInit() {
+    this.cities$ = this.formControl.valueChanges.pipe(
+      startWith(''),
+      debounceTime(300),
+      switchMap(value => {
+        if (value !== '') {
+          return this.lookup(value);
+        } else {
+          // if no value is pressent, return null
+          return of([]);
+        }
+      })
     );
   }
 }
