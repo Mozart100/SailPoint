@@ -1,6 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
+﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
 using SailPoint.DataAccess.Repository;
 using SailPoint.Errors;
 using SailPoint.Services;
@@ -27,9 +25,6 @@ public static class ServiceRegistrar
         services.AddSingleton<ICityLocaterService, CityLocaterService>();
 
         services.AddSingleton<ICityLocaterValidationService, CityLocaterValidationService>();
-        //services.AddSingleton<ICarRentalValidationService, CarRentalValidationService>();
-
-        //services.AddSingleton<IRentalDateSlotService, RentalDateSlotService>();
         services.AddSingleton<ProblemDetailsFactory, ProblemDetailsAdvanceFeaturesFactory>();
 
         return services;

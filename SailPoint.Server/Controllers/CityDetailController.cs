@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using SailPoint.Infrastracture;
 using SailPoint.Models.Dtos;
 using SailPoint.Services;
 using SailPoint.Services.Validations;
