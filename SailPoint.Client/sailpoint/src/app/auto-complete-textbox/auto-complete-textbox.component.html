@@ -7,11 +7,9 @@
     <form class="example-form">
       <mat-form-field class="example-full-width">
         <mat-label>Please start typing</mat-label>
-        <input matInput [matAutocomplete]="auto" placeholder="..." />
+        <input matInput [matAutocomplete]="auto" placeholder="..." [formControl]="formControl" />
         <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
-          <mat-option>Red</mat-option>
-          <mat-option>Blue</mat-option>
-          <mat-option>Green</mat-option>
+          <mat-option *ngFor="let item of filterOptions | async" [value]="item">{{item}}</mat-option>
         </mat-autocomplete>
       </mat-form-field>
     </form>

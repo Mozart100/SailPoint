@@ -6,21 +6,20 @@
     place-items: center;
     margin: 3rem;
 
-    // border:2px solid red;
     // & > *+*{
         //     margin-top: 3rem;
         // }
     }
+
     .stack{
         text-align: center;
         width: 100%;
         min-width: 9rem;
         max-width: 30rem;
-        //border:2px sold red;
 
     & > *{
 
-    margin:0;
+        margin-top:2rem;
     
     }
 }
