@@ -1,17 +1,12 @@
 <div class="container">
-  <!-- <button mat-raised-button color="primary">xxxxxx</button>
-  <button mat-raised-button color="accent">xxxxxx</button> -->
+
   <h1>Auto Complete TextBox</h1>
-  
-  <div class="stack">
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <mat-label class="mat-form-field-label">Please start typing</mat-label>
-        <input matInput [matAutocomplete]="auto" placeholder="..." [formControl]="formControl" />
-        <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
-          <mat-option *ngFor="let item of cities$ | async" [value]="item">{{item}}</mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </form>
+
+  <div class="autocomplete">
+    <input type="text" [formControl]="formControl"/>
+    <div class="search-results">
+      <div *ngFor="let city of cities" class="search-result-item" (click)="select(city)">{{city}}</div>
+    </div>
   </div>
+
 </div>
