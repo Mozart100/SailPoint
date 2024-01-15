@@ -11,8 +11,8 @@ public class CityLocatorScenario : ScenarioBase
     {
         //GetCitiesUrl = $"{BaseUrl}";
 
-        BusinessLogicCallback.Add(SanityTest_Expect_5_Records);
-        BusinessLogicCallback.Add(SanityTest_Expect_2_Records);
+        BusinessLogicLogicCallbacks.Add(SanityTest_Expect_5_Records);
+        BusinessLogicLogicCallbacks.Add(SanityTest_Expect_2_Records);
 
         //Runner.Calls.Add(async ()>await Method1())
         //Runner.Calls.Add(async ()>await Method2())

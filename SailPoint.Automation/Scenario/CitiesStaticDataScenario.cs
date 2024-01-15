@@ -15,7 +15,7 @@ public class CitiesStaticDataScenario : ScenarioBase
 
         Initialize_CityRequest();
 
-        BusinessLogicCallback.Add(PopulateData);
+        BusinessLogicLogicCallbacks.Add(PopulateData);
     }
 
     public List<AddCityRequest> CitiesRequests { get; }

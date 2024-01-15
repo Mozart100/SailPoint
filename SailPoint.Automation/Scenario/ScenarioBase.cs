@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using SailPoint.Infrastracture;
+using System.Net.Http.Json;
 using System.Text.Json;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -6,20 +7,26 @@ namespace SailPoint.Automation.Scenario
 {
     public class ScenarioConfig
     {
-        public int NumberEmptyLines { get; set; } = 2;
+        public int NumberEmptyLinesBetweenMethods { get; set; } = 2;
     }
     public abstract class ScenarioBase
     {
         //private readonly DateOnlyJsonConverter _dateOnlyConverter;
 
-        protected List<Func<Task>> BusinessLogicCallback;
+        protected List<Func<Task>> SetupsLogicCallback;
+        protected List<Func<Task>> BusinessLogicLogicCallbacks;
+        protected List<Func<Task>> SummaryLogicCallback;
 
         public ScenarioBase(string baseUrl)
         {
             BaseUrl = baseUrl;
             Config = new ScenarioConfig();
 
-            BusinessLogicCallback = new List<Func<Task>>();
+
+
+            SetupsLogicCallback = new List<Func<Task>>();
+            BusinessLogicLogicCallbacks = new List<Func<Task>>();
+            SummaryLogicCallback = new List<Func<Task>>();
 
             //_dateOnlyConverter = new DateOnlyJsonConverter();
         }
@@ -31,24 +38,15 @@ namespace SailPoint.Automation.Scenario
         public abstract string ScenarioName { get; }
         public abstract string Description { get; }
 
-
-        protected  virtual async Task Setup()
-        {
-            Console.WriteLine($"No {nameof(Setup)} operation was performed!!!");
-        }
-
         protected virtual async Task PostRun()
         {
             Console.WriteLine($"No {nameof(PostRun)} operation was performed!!!");
         }
 
-
-        //protected abstract Task RunScenario();
-
         protected void DisplayEmptyLines()
         {
-            var loop = Config.NumberEmptyLines;
-            while(loop -- > 0)
+            var loop = Config.NumberEmptyLinesBetweenMethods;
+            while (loop-- > 0)
             {
                 Console.WriteLine();
             }
@@ -68,22 +66,26 @@ namespace SailPoint.Automation.Scenario
             Console.WriteLine($" ------------------------{ScenarioName}----------------------------");
             Console.WriteLine($" ------------------------{ScenarioName}----------------------------");
 
-            DisplayEmptyLines();
-
+            Console.WriteLine();
             Console.WriteLine($"This scenario main purpose: {Description}");
-            DisplayEmptyLines();
+            Console.WriteLine();
 
 
-            Console.WriteLine($"Setup of {ScenarioName} started.");
-            await Setup();
-            Console.WriteLine($"Setup of {ScenarioName} ended succeffully.");
-
-            DisplayEmptyLines();
+            if (SetupsLogicCallback.SafeAny())
+            {
+                Console.WriteLine($"Setups started.");
+                foreach (var callback in SetupsLogicCallback)
+                {
+                    await callback.Invoke();
+                    DisplayEmptyLines();
+                };
+                Console.WriteLine($"Setup finished succeffully.");
+            }
 
 
             Console.WriteLine($"Business Logic started  with base url = {BaseUrl}.");
 
-            foreach (var callback in BusinessLogicCallback)
+            foreach (var callback in BusinessLogicLogicCallbacks)
             {
                 await callback.Invoke();
                 DisplayEmptyLines();
@@ -94,10 +96,19 @@ namespace SailPoint.Automation.Scenario
 
             DisplayEmptyLines();
 
+            if (SummaryLogicCallback.SafeAny())
+            {
 
-            Console.WriteLine($"Post run of {ScenarioName} started.");
-            await PostRun();
-            Console.WriteLine($"Post run of {ScenarioName} ended succeffully.");
+
+                Console.WriteLine($"Post run started.");
+                foreach (var callback in SummaryLogicCallback)
+                {
+                    await callback.Invoke();
+                    DisplayEmptyLines();
+                }
+                Console.WriteLine($"Post run ended succeffully.");
+            }
+
         }
 
         protected async Task<TDto> Get<TDto>(string url)
