@@ -24,4 +24,5 @@ public class CityValidationService : ServiceValidatorBase, ICityValidationServic
 
         Validate(errors);
     }
+
 }

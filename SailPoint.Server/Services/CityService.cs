@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SailPoint.DataAccess.Models;
 using SailPoint.DataAccess.Repository;
+using SailPoint.Infrastracture;
 using SailPoint.Models.Dtos;
 using SailPoint.Services.Validations;
 
@@ -10,6 +11,7 @@ namespace SailPoint.Services;
 public interface ICityService
 {
     Task<CityDb> StoreCityAsync(AddCityRequest request);
+    Task<IEnumerable<CityDb>> StoreCityAsync(AddBatchCityRequest request);
 }
 
 public class CityService : ICityService
@@ -33,9 +35,30 @@ public class CityService : ICityService
     public async Task<CityDb> StoreCityAsync(AddCityRequest request)
     {
         await _cityValidationService.AddCarRequestValidateAsync(request);
+        return await StoreCityAsync(request.City);
+    }
 
-        var city = _mapper.Map<CityDb>(request);
-        var cityDetailDb = await _cityRepository.InsertAsync(city);
+    public async Task<IEnumerable<CityDb>> StoreCityAsync(AddBatchCityRequest request)
+    {
+        var citiesDb = new List<CityDb>();
+        if (request.Cities.SafeAny())
+        {
+            foreach (var city in request.Cities)
+            {
+                if(!city.IsNullOrEmpty())
+                {
+                    citiesDb.Add(await StoreCityAsync(city));
+                }
+            }
+        }
+
+        return citiesDb;
+    }
+
+    public async Task<CityDb> StoreCityAsync(string city)
+    {
+        var cityDb = new CityDb() { City = city };
+        var cityDetailDb = await _cityRepository.InsertAsync(cityDb);
         await _cityLocaterService.StoreCityAsync(cityDetailDb.City);
 
         return cityDetailDb;

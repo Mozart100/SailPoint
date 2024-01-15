@@ -29,6 +29,16 @@ public class CitiesController : ControllerBase
         return response;
     }
 
+    [HttpPost]
+    [Route("batch")]
+    public async Task<AddBatchCityResponse> AddBatchCities(AddBatchCityRequest request)
+    {
+        var dbEntities = await _cityDetailService.StoreCityAsync(request);
+        var buffer = _mapper.Map<AddCityResponse[]>(dbEntities);
+        var response = new AddBatchCityResponse { AddCityResponsees = buffer };
+        return response;
+    }
+
 
     [HttpGet]
     public async Task<GetCitiesResponse> GetAllCitities()

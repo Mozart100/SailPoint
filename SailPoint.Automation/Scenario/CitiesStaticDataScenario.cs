@@ -12,14 +12,17 @@ public class CitiesStaticDataScenario : ScenarioBase
 
     public CitiesStaticDataScenario(string baseUrl) : base(baseUrl)
     {
-        CitiesRequests = new List<AddCityRequest>();
+        BatchUrl = $"{baseUrl}/batch";
+        CitiesRequests = new List<AddBatchCityRequest>();
 
         Initialize_CityRequest();
 
         BusinessLogicLogicCallbacks.Add(PopulateData);
     }
 
-    public List<AddCityRequest> CitiesRequests { get; }
+    public List<AddBatchCityRequest> CitiesRequests { get; }
+
+    public string BatchUrl { get; }
 
     public override string ScenarioName => "Populating Database";
 
@@ -29,65 +32,66 @@ public class CitiesStaticDataScenario : ScenarioBase
     {
         foreach (var request in CitiesRequests)
         {
-            var response = await RunPostCommand<AddCityRequest, AddCityResponse>(BaseUrl, request);
+            var response = await RunPostCommand<AddBatchCityRequest, AddBatchCityResponse>(BatchUrl, request);
 
-            response.Id.Should().BeGreaterThan(0);
-            response.City.Should().Be(request.City);
+            foreach (var cityResponse in response.AddCityResponsees)
+            {
+                cityResponse.Id.Should().BeGreaterThan(0);
+            }
         }
 
     }
 
     private void Initialize_CityRequest()
     {
-        var cities = new List<string>();
+        var count = 1;
+        var buffer = new List<string>();
+        
         using (StreamReader reader = new StreamReader("world-cities.txt"))
         {
-            // Read and discard the first line
-            string firstLine = reader.ReadLine();
-
-            // Read and process the remaining lines
+            //Skip Header.
+            var firstLine = reader.ReadLine();
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
                 if (!line.IsNullOrEmpty())
-
                 {
-                    cities.Add(line.Trim().ToLower());
-                        }
+                    buffer.Add(line.Trim().ToLower());
+                    if ((count % 40)== 0)
+                    {
+                        CitiesRequests.Add(new AddBatchCityRequest { Cities = buffer.ToArray() });
+                        count =1;
+                        buffer.Clear();
+                    }
+                    else
+                    {
+                        count++;
+                    }
+                }
             }
         }
-
-        foreach (var city in cities)
-        {
-            var cityDetail = new AddCityRequest
-            {
-                City = city
-            };
-
-            CitiesRequests.Add(cityDetail);
-        }
     }
 
 
-    private void Initialize_CityRequest_Origin()
-    {
-        //string[] cities = { "New York", "Toronto", "London", "Berlin", "Paris", "Tokyo", "Sydney", "Rio de Janeiro", "Mumbai", "Beijing" };
-        string[] cities = {
-            "test","testt","testtt","testttt","testtttt",
-             "New York", "Berlin", "Beijing", "Bangkok", "New Orlians", "Barcelona", "Brisbane", "Bucharest", "Budapest", "Baltimore", "Buenos Aires", "Busan",
-            "Cairo", "Cape Town", "Caracas", "Casablanca", "Chennai", "Chicago", "Chittagong", "Cologne", "Copenhagen", "Cordoba",
-            "Curitiba", "Cusco", "Cyberjaya", "Changchun", "Chengdu", "Chiba", "Chittorgarh", "Coimbatore", "Cali", "Canberra",
-            "Copenhagen", "Cordoba", "Curitiba", "Cusco", "Cyberjaya", "Changchun", "Chengdu", "Chiba", "Chittorgarh", "Coimbatore", "Cali", "Canberra"
-        };
+    //private void Initialize_CityRequest_Origin()
+    //{
+    //    //string[] cities = { "New York", "Toronto", "London", "Berlin", "Paris", "Tokyo", "Sydney", "Rio de Janeiro", "Mumbai", "Beijing" };
+    //    string[] cities = {
+    //        "test","testt","testtt","testttt","testtttt",
+    //         "New York", "Berlin", "Beijing", "Bangkok", "New Orlians", "Barcelona", "Brisbane", "Bucharest", "Budapest", "Baltimore", "Buenos Aires", "Busan",
+    //        "Cairo", "Cape Town", "Caracas", "Casablanca", "Chennai", "Chicago", "Chittagong", "Cologne", "Copenhagen", "Cordoba",
+    //        "Curitiba", "Cusco", "Cyberjaya", "Changchun", "Chengdu", "Chiba", "Chittorgarh", "Coimbatore", "Cali", "Canberra",
+    //        "Copenhagen", "Cordoba", "Curitiba", "Cusco", "Cyberjaya", "Changchun", "Chengdu", "Chiba", "Chittorgarh", "Coimbatore", "Cali", "Canberra"
+    //    };
 
-        foreach (var city in cities)
-        {
-            var cityDetail = new AddCityRequest
-            {
-                City = city
-            };
+    //    foreach (var city in cities)
+    //    {
+    //        var cityDetail = new AddCityRequest
+    //        {
+    //            City = city
+    //        };
 
-            CitiesRequests.Add(cityDetail);
-        }
-    }
+    //        CitiesRequests.Add(cityDetail);
+    //    }
+    //}
 }
