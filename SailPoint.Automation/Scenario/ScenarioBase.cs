@@ -1,4 +1,6 @@
-﻿using SailPoint.Infrastracture;
+﻿using SailPoint.Automation.Responses;
+using SailPoint.Infrastracture;
+using System.Diagnostics.Eventing.Reader;
 using System.Net.Http.Json;
 using System.Text.Json;
 
@@ -83,17 +85,17 @@ namespace SailPoint.Automation.Scenario
             {
                 Console.WriteLine($"No Setups.");
             }
-            
+
             Console.WriteLine();
 
             Console.WriteLine($"Business Logic started with base url = {BaseUrl}.");
             Console.WriteLine();
 
             var steps = 0;
-            while(steps< BusinessLogicLogicCallbacks.Count)
+            while (steps < BusinessLogicLogicCallbacks.Count)
             {
                 var callback = BusinessLogicLogicCallbacks.ElementAt(steps);
-                if(SetupsLogicCallback.SafeAny())
+                if (SetupsLogicCallback.SafeAny())
                 {
                     DisplayDividerLines(4);
                 }
@@ -101,7 +103,7 @@ namespace SailPoint.Automation.Scenario
                 await callback.Invoke();
                 Console.WriteLine($"{callback.Method.Name} finished successfully.");
 
-                if (steps+1 != BusinessLogicLogicCallbacks.Count)
+                if (steps + 1 != BusinessLogicLogicCallbacks.Count)
                 {
                     DisplayDividerLines();
                     //Console.WriteLine();
@@ -147,9 +149,11 @@ namespace SailPoint.Automation.Scenario
                     var res = await response.Content.ReadFromJsonAsync<TDto>();
 
                     return res;
+
                 }
 
-                throw new Exception("Server failed.");
+                var errorResponse = await response.Content.ReadFromJsonAsync<ErrorResponse>();
+                throw new ErrorResponseException { ErrorResponse = errorResponse };
             }
         }
         protected async Task<TResponse> DeleteCommand<TResponse>(string url) where TResponse : class

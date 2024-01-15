@@ -2,7 +2,7 @@
 
 public class SailPointError
 {
-    public SailPointError(string errorMessage, string propertyName)
+    public SailPointError( string propertyName, string errorMessage)
     {
         PropertyName = propertyName;
         ErrorMessage = errorMessage;
