@@ -17,5 +17,12 @@
   <ItemGroup>
     <ProjectReference Include="..\SailPoint.Server\SailPoint.csproj" />
   </ItemGroup>
+  
+  
+  <ItemGroup>
+    <None Update="world-cities.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>

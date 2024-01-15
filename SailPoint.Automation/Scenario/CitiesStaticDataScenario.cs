@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using SailPoint.Infrastracture;
 using SailPoint.Models.Dtos;
 
 namespace SailPoint.Automation.Scenario;
@@ -38,6 +39,38 @@ public class CitiesStaticDataScenario : ScenarioBase
 
     private void Initialize_CityRequest()
     {
+        var cities = new List<string>();
+        using (StreamReader reader = new StreamReader("world-cities.txt"))
+        {
+            // Read and discard the first line
+            string firstLine = reader.ReadLine();
+
+            // Read and process the remaining lines
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                if (!line.IsNullOrEmpty())
+
+                {
+                    cities.Add(line.Trim().ToLower());
+                        }
+            }
+        }
+
+        foreach (var city in cities)
+        {
+            var cityDetail = new AddCityRequest
+            {
+                City = city
+            };
+
+            CitiesRequests.Add(cityDetail);
+        }
+    }
+
+
+    private void Initialize_CityRequest_Origin()
+    {
         //string[] cities = { "New York", "Toronto", "London", "Berlin", "Paris", "Tokyo", "Sydney", "Rio de Janeiro", "Mumbai", "Beijing" };
         string[] cities = {
             "test","testt","testtt","testttt","testtttt",
@@ -47,7 +80,7 @@ public class CitiesStaticDataScenario : ScenarioBase
             "Copenhagen", "Cordoba", "Curitiba", "Cusco", "Cyberjaya", "Changchun", "Chengdu", "Chiba", "Chittorgarh", "Coimbatore", "Cali", "Canberra"
         };
 
-        foreach(var city in cities)
+        foreach (var city in cities)
         {
             var cityDetail = new AddCityRequest
             {
