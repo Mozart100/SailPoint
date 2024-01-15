@@ -12,10 +12,14 @@ namespace SailPoint.Automation.Scenario
     {
         //private readonly DateOnlyJsonConverter _dateOnlyConverter;
 
+        protected List<Func<Task>> BusinessLogicCallback;
+
         public ScenarioBase(string baseUrl)
         {
             BaseUrl = baseUrl;
             Config = new ScenarioConfig();
+
+            BusinessLogicCallback = new List<Func<Task>>();
 
             //_dateOnlyConverter = new DateOnlyJsonConverter();
         }
@@ -39,7 +43,7 @@ namespace SailPoint.Automation.Scenario
         }
 
 
-        protected abstract Task RunScenario();
+        //protected abstract Task RunScenario();
 
         protected void DisplayEmptyLines()
         {
@@ -77,9 +81,15 @@ namespace SailPoint.Automation.Scenario
             DisplayEmptyLines();
 
 
-            Console.WriteLine($"Valid scenarios: {ScenarioName} base url = {BaseUrl} started.");
-            await RunScenario();
-            Console.WriteLine($"Valid scenarios: {ScenarioName} finished successfully.");
+            Console.WriteLine($"Business Logic started  with base url = {BaseUrl}.");
+
+            foreach (var callback in BusinessLogicCallback)
+            {
+                await callback.Invoke();
+                DisplayEmptyLines();
+            }
+
+            Console.WriteLine($"Business Logic finished successfully.");
 
 
             DisplayEmptyLines();

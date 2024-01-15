@@ -14,6 +14,8 @@ public class CitiesStaticDataScenario : ScenarioBase
         CitiesRequests = new List<AddCityRequest>();
 
         Initialize_CityRequest();
+
+        BusinessLogicCallback.Add(PopulateData);
     }
 
     public List<AddCityRequest> CitiesRequests { get; }
@@ -21,11 +23,6 @@ public class CitiesStaticDataScenario : ScenarioBase
     public override string ScenarioName => "Populating static data.";
 
     public override string Description => "Populate static data regarding cities...";
-
-    protected override async Task RunScenario()
-    {
-        await PopulateData();
-    }
 
     private async Task PopulateData()
     {

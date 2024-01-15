@@ -9,30 +9,27 @@ public class CityLocatorScenario : ScenarioBase
 
     public CityLocatorScenario(string baseUrl) : base(baseUrl)
     {
-        GetCitiesUrl = $"{BaseUrl}";
-    }
+        //GetCitiesUrl = $"{BaseUrl}";
 
-    public string GetCitiesUrl { get; }
+        BusinessLogicCallback.Add(SanityTest_Expect_5_Records);
+        BusinessLogicCallback.Add(SanityTest_Expect_2_Records);
+
+        //Runner.Calls.Add(async ()>await Method1())
+        //Runner.Calls.Add(async ()>await Method2())
+    }
 
     public override string ScenarioName => "City locator scenario";
-
     public override string Description => "Integration tests for CityLocatorService";
-
-    protected override async Task RunScenario()
-    {
-        await SanityTest_Expect_5_Records();
-        await SanityTest_Expect_2_Records();
-    }
 
     private async Task SanityTest_Expect_5_Records()
     {
-        var response = await Get<GetCitiesResponse>($"{GetCitiesUrl}/tes/level/10");
+        var response = await Get<GetCitiesResponse>($"{BaseUrl}/tes/level/10");
         response.Cities.SafeCount().Should().Be(5);
     }
 
     private async Task SanityTest_Expect_2_Records()
     {
-        var response = await Get<GetCitiesResponse>($"{GetCitiesUrl}/tes/level/2");
+        var response = await Get<GetCitiesResponse>($"{BaseUrl}/tes/level/2");
         response.Cities.SafeCount().Should().Be(2);
     }
 }
