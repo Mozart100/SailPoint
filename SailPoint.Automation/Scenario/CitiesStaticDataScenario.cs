@@ -20,14 +20,12 @@ public class CitiesStaticDataScenario : ScenarioBase
 
     public List<AddCityRequest> CitiesRequests { get; }
 
-    public override string ScenarioName => "Populating static data.";
+    public override string ScenarioName => "Populating Database";
 
     public override string Description => "Populate static data regarding cities...";
 
     private async Task PopulateData()
     {
-        Console.WriteLine($"{nameof(PopulateData)} Started.");
-
         foreach (var request in CitiesRequests)
         {
             var response = await RunPostCommand<AddCityRequest, AddCityResponse>(BaseUrl, request);
@@ -35,11 +33,6 @@ public class CitiesStaticDataScenario : ScenarioBase
             response.Id.Should().BeGreaterThan(0);
             response.City.Should().Be(request.City);
         }
-
-        Console.WriteLine($"{nameof(PopulateData)} Finished.");
-        Console.WriteLine();
-        Console.WriteLine("-------------------------------------------------------------------------------------------------");
-        Console.WriteLine("-------------------------------------------------------------------------------------------------");
 
     }
 

@@ -1,7 +1,6 @@
 ﻿using SailPoint.Infrastracture;
 using System.Net.Http.Json;
 using System.Text.Json;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace SailPoint.Automation.Scenario
 {
@@ -21,8 +20,6 @@ namespace SailPoint.Automation.Scenario
         {
             BaseUrl = baseUrl;
             Config = new ScenarioConfig();
-
-
 
             SetupsLogicCallback = new List<Func<Task>>();
             BusinessLogicLogicCallbacks = new List<Func<Task>>();
@@ -48,22 +45,23 @@ namespace SailPoint.Automation.Scenario
             var loop = Config.NumberEmptyLinesBetweenMethods;
             while (loop-- > 0)
             {
-                Console.WriteLine();
+                Console.WriteLine("");
+            }
+        }
+
+        protected void DisplayDividerLines(int amount = 2)
+        {
+            var loop = amount;
+            while (loop-- > 0)
+            {
+                Console.WriteLine("---------------------------------------------------------------------");
             }
         }
 
 
+
         public async Task StartRunScenario()
         {
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-
-
-            Console.WriteLine($" ------------------------{ScenarioName}----------------------------");
-            Console.WriteLine($" ------------------------{ScenarioName}----------------------------");
-            Console.WriteLine($" ------------------------{ScenarioName}----------------------------");
             Console.WriteLine($" ------------------------{ScenarioName}----------------------------");
 
             Console.WriteLine();
@@ -73,41 +71,67 @@ namespace SailPoint.Automation.Scenario
 
             if (SetupsLogicCallback.SafeAny())
             {
-                Console.WriteLine($"Setups started.");
-                foreach (var callback in SetupsLogicCallback)
+                Console.WriteLine($"Setup run started.");
+                foreach (var callback in SummaryLogicCallback)
                 {
                     await callback.Invoke();
-                    DisplayEmptyLines();
-                };
+                    DisplayDividerLines();
+                }
                 Console.WriteLine($"Setup finished succeffully.");
             }
-
-
-            Console.WriteLine($"Business Logic started  with base url = {BaseUrl}.");
-
-            foreach (var callback in BusinessLogicLogicCallbacks)
+            else
             {
-                await callback.Invoke();
-                DisplayEmptyLines();
+                Console.WriteLine($"No Setups.");
             }
+            
+            Console.WriteLine();
 
+            Console.WriteLine($"Business Logic started with base url = {BaseUrl}.");
+            Console.WriteLine();
+
+            var steps = 0;
+            while(steps< BusinessLogicLogicCallbacks.Count)
+            {
+                var callback = BusinessLogicLogicCallbacks.ElementAt(steps);
+                if(SetupsLogicCallback.SafeAny())
+                {
+                    DisplayDividerLines(4);
+                }
+                Console.WriteLine($"{callback.Method.Name} started.");
+                await callback.Invoke();
+                Console.WriteLine($"{callback.Method.Name} finished successfully.");
+
+                if (steps+1 != BusinessLogicLogicCallbacks.Count)
+                {
+                    DisplayDividerLines();
+                    //Console.WriteLine();
+                }
+
+                steps++;
+            }
+            Console.WriteLine();
             Console.WriteLine($"Business Logic finished successfully.");
 
 
-            DisplayEmptyLines();
-
+            Console.WriteLine();
             if (SummaryLogicCallback.SafeAny())
             {
-
-
+                DisplayDividerLines(4);
                 Console.WriteLine($"Post run started.");
                 foreach (var callback in SummaryLogicCallback)
                 {
                     await callback.Invoke();
-                    DisplayEmptyLines();
+                    DisplayDividerLines();
                 }
                 Console.WriteLine($"Post run ended succeffully.");
             }
+            else
+            {
+                Console.WriteLine($"No post runs.");
+
+            }
+
+            Console.WriteLine($"{ScenarioName} finished successffully");
 
         }
 
