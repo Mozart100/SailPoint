@@ -2,6 +2,10 @@
   <mat-sidenav  #sidenav>
     <mat-nav-list (click)="sidenav.close()">
       <a mat-list-item routerLink="/">
+        <mat-icon>add_person</mat-icon>
+        <span>Login</span>
+      </a>
+      <a mat-list-item routerLink="/autocomplete">
         <mat-icon>question_answer</mat-icon>
         <span>Auto complete</span>
       </a>
@@ -11,6 +15,7 @@
         <span>Cities list</span>
       </a>
 
+
     </mat-nav-list>
   </mat-sidenav>
 
@@ -19,6 +24,8 @@
     <mat-icon>menu</mat-icon>
   </button>
 </mat-toolbar>
+
+
 
 <router-outlet></router-outlet>
 

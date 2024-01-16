@@ -9,16 +9,22 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { DisplayAllCitiesComponent } from './display-all-cities/display-all-cities.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserLoginFormComponent } from './user-login-form/user-login-form.component';
 
 const appRoutes: Routes = [
   {
     path: '',
+    component: UserLoginFormComponent,
+  },
+  {
+    path: 'autocomplete',
     component: AutoCompleteTextboxComponent,
   },
   {
     path: 'displayallcities',
     component: DisplayAllCitiesComponent,
   },
+   
 ];
 
 @NgModule({
@@ -26,6 +32,7 @@ const appRoutes: Routes = [
     AppComponent,
     AutoCompleteTextboxComponent,
     DisplayAllCitiesComponent,
+    UserLoginFormComponent
   ],
   imports: [
     BrowserModule,
