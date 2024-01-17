@@ -1,19 +1,35 @@
 .container{
-    border: 2px solid lightcoral;
+    border: 2px solid gray;
     margin: 2rem;
     padding: 1rem;
     display: grid;
     justify-content: center;
 
+    > .example-form{
+        // padding: 1rem;
+        outline: 2px solid gray;
+        min-width: 150px;
+        // max-width: 500px;
+        width: 100%;
+
+        > .form-group
+        {
+           > input.ng-invalid.ng-touched{
+                outline: 2px solid red;
+            }
+        }
+    }
 }
+
 
 form > *+*{
     margin-top:1rem;
 
 }
 
-.form-group>label{
+.form-group>*{
     display: block;
+    
 }
 
 .center
@@ -22,11 +38,11 @@ form > *+*{
     justify-content: center;
 }
 
-.example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-  }
+// .example-form {
+//     min-width: 150px;
+//     max-width: 500px;
+//     width: 100%;
+//   }
   
   .example-full-width {
     width: 100%;
