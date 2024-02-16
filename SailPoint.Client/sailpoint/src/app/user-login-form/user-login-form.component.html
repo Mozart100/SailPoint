@@ -4,10 +4,10 @@
     <div class="form-group">
       <label for="username">User Name</label>
       <input type="text" id="userName" formControlName="userName" />
-        <span *ngIf="!signupForm.get('userName')?.valid && signupForm.get('userName')?.touched" class="error-occured">
-          <span *ngIf="signupForm.get('userName')!.errors?.['xxx']">xxx invalid user/ name</span>
-          <span *ngIf="signupForm.get('userName')!.errors?.['required']">Field required</span>
-        </span>
+        <div *ngIf="!signupForm.get('userName')?.valid && signupForm.get('userName')?.touched" class="error-occured">
+          <div *ngIf="signupForm.get('userName')!.errors?.['xxx']">xxx invalid user/ name</div>
+          <div *ngIf="signupForm.get('userName')!.errors?.['required']">Field required</div>
+        </div>
     </div>
     
     <div class="form-group">
