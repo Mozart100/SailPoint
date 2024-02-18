@@ -14,7 +14,7 @@ import { UserLoginFormComponent } from './user-login-form/user-login-form.compon
 const appRoutes: Routes = [
   {
     path: '',
-    component: UserLoginFormComponent,
+    component: DisplayAllCitiesComponent,
   },
   {
     path: 'autocomplete',
@@ -25,6 +25,10 @@ const appRoutes: Routes = [
     component: DisplayAllCitiesComponent,
   },
    
+  {
+    path: 'login',
+    component: UserLoginFormComponent,
+  },
 ];
 
 @NgModule({
