@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -11,10 +11,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 
-const modules = [MatIconModule,MatListModule,MatCardModule,MatAutocompleteModule, MatTabsModule ,MatInputModule,MatFormFieldModule,MatSidenavModule,MatButtonModule, BrowserAnimationsModule, MatToolbarModule,  MatTableModule];
+const modules = [MatGridListModule, MatIconModule,MatListModule,MatCardModule,MatAutocompleteModule, MatTabsModule ,MatInputModule,MatFormFieldModule,MatSidenavModule,MatButtonModule, BrowserAnimationsModule, MatToolbarModule,  MatTableModule];
 
 @NgModule({
   imports: [modules],

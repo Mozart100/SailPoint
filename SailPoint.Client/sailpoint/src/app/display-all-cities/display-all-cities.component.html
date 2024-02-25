@@ -1,10 +1,17 @@
 <div class="container" color="accent">
   <h1>All Cities</h1>
-  <mat-list role="list" class="all-cities">
+  <mat-grid-list [cols]="col" [rowHeight]="rowHeight">
+    <mat-grid-tile *ngFor="let city of cities$ | async">
+      <div class="text" [ngStyle]="{ color: getColor(city) }">
+        {{ city }}
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <!-- <mat-list role="list" class="all-citiess">
     <mat-list-item role="listitem" *ngFor="let city of cities$ | async">
       <div class="text" [ngStyle]="{ color: getColor(city) }">
         {{ city }}
       </div>
     </mat-list-item>
-  </mat-list>
+  </mat-list> -->
 </div>
