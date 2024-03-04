@@ -1,17 +1,23 @@
-<div class="container" color="accent">
-  <h1>All Cities</h1>
-  <mat-grid-list [cols]="col" [rowHeight]="rowHeight">
-    <mat-grid-tile *ngFor="let city of cities$ | async">
-      <div class="text" [ngStyle]="{ color: getColor(city) }">
-        {{ city }}
-      </div>
-    </mat-grid-tile>
-  </mat-grid-list>
-  <!-- <mat-list role="list" class="all-citiess">
+  <div class="container" color="accent">
+    <h1>All Cities</h1>
+    <mat-grid-list [cols]="col" [rowHeight]="rowHeight">
+      <mat-grid-tile *ngFor="let city of cities$ | async">
+        <div class="text" [ngStyle]="{ color: getColor(city) }">
+          {{ city }}
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <!-- <mat-list role="list" class="all-citiess">
     <mat-list-item role="listitem" *ngFor="let city of cities$ | async">
       <div class="text" [ngStyle]="{ color: getColor(city) }">
         {{ city }}
       </div>
     </mat-list-item>
   </mat-list> -->
+  </div>
+
+  <!-- <mat-spinner *ngIf="loading$ | async"></mat-spinner> -->
+<div class="spiner-container" *ngIf="loading$ | async">
+  <mat-spinner></mat-spinner>
 </div>

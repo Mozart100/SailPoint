@@ -6,10 +6,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { AutoCompleteTextboxComponent } from './auto-complete-textbox/auto-complete-textbox.component';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { DisplayAllCitiesComponent } from './display-all-cities/display-all-cities.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserLoginFormComponent } from './user-login-form/user-login-form.component';
+import { HttpInterceptorService } from './services/http-interceptor.service';
 
 const appRoutes: Routes = [
   {
@@ -24,7 +25,7 @@ const appRoutes: Routes = [
     path: 'displayallcities',
     component: DisplayAllCitiesComponent,
   },
-   
+
   {
     path: 'login',
     component: UserLoginFormComponent,
@@ -36,7 +37,7 @@ const appRoutes: Routes = [
     AppComponent,
     AutoCompleteTextboxComponent,
     DisplayAllCitiesComponent,
-    UserLoginFormComponent
+    UserLoginFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,9 +45,15 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

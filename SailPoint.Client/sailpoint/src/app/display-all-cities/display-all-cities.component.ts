@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CityLocatorService } from '../services/city.locator.service';
 import { Observable, map, tap } from 'rxjs';
+import { LoaderIndicatorService } from '../services/loader-indicator.service';
 
 @Component({
   selector: 'app-display-all-cities',
@@ -14,9 +15,12 @@ export class DisplayAllCitiesComponent implements OnInit {
   col: number = 4;
   rowHeight = '3rem';
 
+  loading$ = this.loaderService.loader$;
+
   constructor(
     private cityLocatorService: CityLocatorService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private loaderService: LoaderIndicatorService
   ) {
     this.breakpointObserver
       .observe([Breakpoints.Small, Breakpoints.Medium, Breakpoints.Large])
@@ -40,7 +44,9 @@ export class DisplayAllCitiesComponent implements OnInit {
 
   ngOnInit(): void {
     this.cities$ = this.cityLocatorService.getAllCities().pipe(
-      tap((res) => console.log(res.cities)),
+      tap((res) => {
+        console.log(res.cities);
+      }),
       map((response) => response.cities)
     );
   }

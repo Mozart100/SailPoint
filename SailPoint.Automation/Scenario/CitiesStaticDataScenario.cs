@@ -42,56 +42,49 @@ public class CitiesStaticDataScenario : ScenarioBase
 
     }
 
-    //private void Initialize_CityRequest()
-    //{
-    //    var count = 1;
-    //    var buffer = new List<string>();
-
-    //    using (StreamReader reader = new StreamReader("world-cities.txt"))
-    //    {
-    //        //Skip Header.
-    //        var firstLine = reader.ReadLine();
-    //        while (!reader.EndOfStream)
-    //        {
-    //            var line = reader.ReadLine();
-    //            if (!line.IsNullOrEmpty())
-    //            {
-    //                buffer.Add(line.Trim().ToLower());
-    //                if ((count % 40)== 0)
-    //                {
-    //                    CitiesRequests.Add(new AddBatchCityRequest { Cities = buffer.ToArray() });
-    //                    count =1;
-    //                    buffer.Clear();
-    //                }
-    //                else
-    //                {
-    //                    count++;
-    //                }
-    //            }
-    //        }
-    //    }
-    //}
-
-
     private void Initialize_CityRequest()
     {
-        //string[] cities = { "New York", "Toronto", "London", "Berlin", "Paris", "Tokyo", "Sydney", "Rio de Janeiro", "Mumbai", "Beijing" };
-        string[] cities = {
-            "test","testt","testtt","testttt","testtttt",
-             "New York", "Berlin", "Beijing", "Bangkok", "New Orlians", "Barcelona", "Brisbane", "Bucharest", "Budapest", "Baltimore", "Buenos Aires", "Busan",
-            "Cairo", "Cape Town", "Caracas", "Casablanca", "Chennai", "Chicago", "Chittagong", "Cologne", "Copenhagen", "Cordoba",
-            "Curitiba", "Cusco", "Cyberjaya", "Changchun", "Chengdu", "Chiba", "Chittorgarh", "Coimbatore", "Cali", "Canberra",
-            "Copenhagen", "Cordoba", "Curitiba", "Cusco", "Cyberjaya", "Changchun", "Chengdu", "Chiba", "Chittorgarh", "Coimbatore", "Cali", "Canberra"
-        };
-        CitiesRequests.Add(new AddBatchCityRequest { Cities = cities });
+        var count = 1;
+        var buffer = new List<string>();
 
-        //    foreach (var city in cities)
-        //    {
-        //        var cityDetail = new AddCityRequest
-        //        {
-        //            City = city
-        //        };
-
-        //    }
+        using (StreamReader reader = new StreamReader("world-cities.txt"))
+        {
+            //Skip Header.
+            var firstLine = reader.ReadLine();
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                if (!line.IsNullOrEmpty())
+                {
+                    buffer.Add(line.Trim().ToLower());
+                    if ((count % 40) == 0)
+                    {
+                        CitiesRequests.Add(new AddBatchCityRequest { Cities = buffer.ToArray() });
+                        count = 1;
+                        buffer.Clear();
+                    }
+                    else
+                    {
+                        count++;
+                    }
+                }
+            }
+        }
     }
+
+
+    //private void Initialize_CityRequest()
+    //{
+    //    //string[] cities = { "New York", "Toronto", "London", "Berlin", "Paris", "Tokyo", "Sydney", "Rio de Janeiro", "Mumbai", "Beijing" };
+    //    string[] cities = {
+    //        "test","testt","testtt","testttt","testtttt",
+    //         "New York", "Berlin", "Beijing", "Bangkok", "New Orlians", "Barcelona", "Brisbane", "Bucharest", "Budapest", "Baltimore", "Buenos Aires", "Busan",
+    //        "Cairo", "Cape Town", "Caracas", "Casablanca", "Chennai", "Chicago", "Chittagong", "Cologne", "Copenhagen", "Cordoba",
+    //        "Curitiba", "Cusco", "Cyberjaya", "Changchun", "Chengdu", "Chiba", "Chittorgarh", "Coimbatore", "Cali", "Canberra",
+    //        "Copenhagen", "Cordoba", "Curitiba", "Cusco", "Cyberjaya", "Changchun", "Chengdu", "Chiba", "Chittorgarh", "Coimbatore", "Cali", "Canberra"
+    //    };
+    //    CitiesRequests.Add(new AddBatchCityRequest { Cities = cities });
+
+
+    //}
 }

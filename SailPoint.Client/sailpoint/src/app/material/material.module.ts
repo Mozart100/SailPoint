@@ -12,10 +12,11 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
-const modules = [MatGridListModule, MatIconModule,MatListModule,MatCardModule,MatAutocompleteModule, MatTabsModule ,MatInputModule,MatFormFieldModule,MatSidenavModule,MatButtonModule, BrowserAnimationsModule, MatToolbarModule,  MatTableModule];
+const modules = [MatProgressSpinnerModule,MatGridListModule, MatIconModule,MatListModule,MatCardModule,MatAutocompleteModule, MatTabsModule ,MatInputModule,MatFormFieldModule,MatSidenavModule,MatButtonModule, BrowserAnimationsModule, MatToolbarModule,  MatTableModule];
 
 @NgModule({
   imports: [modules],
